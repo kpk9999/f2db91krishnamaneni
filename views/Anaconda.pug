@@ -1,0 +1,17 @@
+extends layout
+block content
+    div(class="container-fluid")
+        h1= title
+    - let result=results 
+          div(class="row")
+            each form,index in result
+                div(class = "col-sm-2 bg-secondary" onclick=`buy(${index})`) #{form.Ananconda_color}              
+                div(class = "col-sm-2 bg-secondary" onclick=`buy(${index})`) #{form.Ananconda_petname}                
+                div(class = "col-sm-2 bg-secondary" onclick=`buy(${index})`) #{form.Ananconda_price}
+                hr
+    script.
+        function buy(itemNo)
+        {
+            alert(`You purchased Item ${itemNo+1}`)
+        }
+       
