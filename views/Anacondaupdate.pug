@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  h1= title
+
+  if(toShow == null)
+    h2 No instance to update
+  else
+    - let Anacondaid = toShow._id
+    - let Anaconda_color = toShow.Ananconda_color
+    - let Anaconda_brand = toShow.Ananconda_petname
+    - let Anaconda_price = toShow.Ananconda_price
+    - let actionid = "/resource/Anaconda/" + Anacondaid
+    script let actionid = "#{actionid}"
+    div.row(class='mb-2')
+    div.mr-1 ID is 
+      span(style="color:red")  #{Anacondaid}
+    form(id='AnacondaForm', action= actionid, method="PUT")
+      div.form-group
+      
+          label.AnacondaAttr(for='Anaconda_color',class="col-form-label") Anaconda Colour
+        
+          input#Anaconda_color(type='text', name='Anaconda_color',class="form-control", value=Anaconda_color)
+      div.form-group
+      
+          label.AnacondaAttr(for='Anaconda_brand',class="col-form-label") Anaconda name 
+        
+          input#Anaconda_brand(type='text', name='Anaconda_brand',class="form-control", value=Anaconda_brand)
+      div.form-group
+      
+          label.AnacondaAttr(for='Anaconda_price',class="col-form-label") Anaconda cost
+        
+          input#Anaconda_price(type='number', name='Anaconda_price',class="form-control", value=Anaconda_price)
+      input( type="submit")
+        //- button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      //-button( onclick="cancel()") Cancel
+    
+    script.
+      document.forms['AnacondaForm'].addEventListener('submit', (event) => {
+       event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+       fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+        }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error )
+       });
+      });

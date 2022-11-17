@@ -1,0 +1,23 @@
+extends layout
+block content
+ h1= title
+ if(toShow == null)
+    h2 No instance to update
+ else
+ - let Anacondaid = toShow._id
+ - let Anaconda_color = toShow.Ananconda_color
+ - let Anaconda_petname = toShow.Ananconda_petname
+ - let Anaconda_price = toShow.Ananconda_price
+ div
+ div.row
+  div(class='AnacondaAttr mr-3') Anaconda ID is:
+  div #{Anacondaid}
+ div.row
+ div(class='AnacondaAttr mr-3') Anaconda color is:
+ div #{Anaconda_color}
+ div.row
+ div(class='AnacondaAttr mr-3') Anaconda petname  is:
+ div #{Anaconda_petname}
+ div.row
+ div(class='AnacondaAttr mr-3') Anaconda price is:
+ div #{Anaconda_price}

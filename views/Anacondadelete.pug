@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  h1= title
+
+  if(toShow == null)
+    h2 No instance to delete
+  else
+    - let Anacondaid = toShow._id
+    - let Anaconda_color = toShow.Ananconda_color
+    - let Anaconda_brand = toShow.Ananconda_petname
+    - let Anaconda_price = toShow.Ananconda_price
+    - let actionid = "/resource/Anaconda/" + Anacondaid
+    script let actionid = "#{actionid}"
+    div
+     div.row 
+      div(class='AnacondaAttr mr-3') Anaconda ID is:
+      div #{Anacondaid}
+     div.row
+      div(class='AnacondaAttr mr-3') Anaconda color is:
+      div #{Anaconda_color}
+     div.row
+      div(class='AnacondaAttr mr-3') Anaconda Name is:
+      div #{Anaconda_brand}
+     div.row
+      div(class='AnacondaAttr mr-3') Anaconda Price is:
+      div #{Anaconda_price}
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+  script.
+   function cancel() {
+    window.location.href='/Anacondas'
+    }
+  script.
+    function deleteOnid() {
+     console.log("starting delete")
+     fetch(actionid, {
+      method: 'DELETE'
+     }).then((resp) => {
+        return resp.json();
+     }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/Anaconda'
+     }).catch((error) => {
+        alert("Delete failed " + error )
+     });
+    }
+
+    
