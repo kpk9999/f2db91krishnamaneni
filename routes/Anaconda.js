@@ -10,14 +10,21 @@ router.get('/', function(req, res, next) {
 
 });
 var express = require('express');
-const Anaconda_controlers= require('../controllers/Anaconda');
+const Anaconda_controlers= require('../controllers/Anaconda');  
 var router = express.Router();
+const secured = (req, res, next) => {
+  if (req.user){
+  return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect("/login");
+  }
 /* GET Anacondas */
 router.get('/', Anaconda_controlers.Anaconda_view_all_Page );
 /* GET detail Anaconda page */
-router.get('/detail', Anaconda_controlers.Anaconda_view_one_Page);
-router.get('/create', Anaconda_controlers.Anaconda_create_Page);
-router.get('/update', Anaconda_controlers.Anaconda_update_Page);
-router.get('/delete', Anaconda_controlers.Anaconda_delete_Page);
+router.get('/detail', secured,Anaconda_controlers.Anaconda_view_one_Page);
+router.get('/create',secured, Anaconda_controlers.Anaconda_create_Page);
+router.get('/update', secured,Anaconda_controlers.Anaconda_update_Page);
+router.get('/delete', secured,Anaconda_controlers.Anaconda_delete_Page);
 module.exports = router;
 module.exports = router;
